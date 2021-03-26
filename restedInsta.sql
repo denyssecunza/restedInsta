@@ -6,6 +6,7 @@ CREATE TABLE "users" (
 
 CREATE TABLE "photos" (
   "id" SERIAL PRIMARY KEY,
+  "photo_link" varchar NOT NULL;
   "caption" varchar NOT NULL,
   "comment" int,
   "likes" int,

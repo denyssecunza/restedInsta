@@ -1,6 +1,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable("photos", (table) => {
     table.increments("id");
+    table.string("photo_link").notNullable();
     table.string("caption");
     table.integer("comment");
     table.integer("likes");
