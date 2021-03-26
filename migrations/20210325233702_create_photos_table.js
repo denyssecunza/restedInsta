@@ -5,7 +5,7 @@ exports.up = function (knex) {
     table.integer("comment");
     table.integer("likes");
     table.integer("user_id");
-    table.foreign("user_id").references("users.id");
+    table.foreign("user_id").references("id").inTable("users");
     table.timestamp("created_at").defaultTo(knex.fn.now());
   });
 };
