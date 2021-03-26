@@ -9,19 +9,22 @@ CREATE TABLE "photos" (
   "caption" varchar NOT NULL,
   "comment" int,
   "likes" int,
-  "user_id" int
+  "user_id" int,
+  "created_at" timestamp
 );
 
 CREATE TABLE "comments" (
   "id" SERIAL PRIMARY KEY,
   "user_id" int,
   "photo_id" int,
-  "comment_text" varchar NOT NULL
+  "comment_text" varchar NOT NULL,
+  "created_at" timestamp
 );
 
 CREATE TABLE "photo_likes" (
   "user_id" int,
   "photo_id" int,
+  "is_liked" boolean,
   PRIMARY KEY ('user_id', 'photo_id')
 );
 
