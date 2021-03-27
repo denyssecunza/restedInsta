@@ -30,7 +30,7 @@ function App() {
         <h6>Username:{user}</h6>
       </div>
       <div>
-        <img href={photo} alt="User Image" />
+        <img alt="User Image" />
       </div>
       <div>
         <form>
