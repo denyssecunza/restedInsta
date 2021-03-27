@@ -13,7 +13,7 @@ function UserPost() {
             id: photo.id,
             image: photo.photo_link,
             caption: photo.caption,
-            comments: photo.comments,
+            comments: photo.comment,
             likes: photo.likes,
             userId: photo.user_id,
           });
@@ -21,7 +21,7 @@ function UserPost() {
       })
       .catch((err) => console.log(err));
     //fetch user
-    fetch("http://localhost:3000/")
+    fetch("http://localhost:3000/users")
       .then((res) => {
         //console.log(res);
         return res.json();
@@ -51,7 +51,12 @@ function UserPost() {
         <h6>{user.username}</h6>
       </div>
       <div>
-        <img href={photoState.image} alt="User" />
+        <img
+          className="img-thumbnail"
+          src={photoState.image}
+          alt="User"
+          style={{ width: "auto", height: "195px" }}
+        />
       </div>
       <div>
         <form>

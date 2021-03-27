@@ -13,7 +13,7 @@ function Dashboard() {
 
   React.useEffect(() => {
     let isCurrent = true;
-    fetch("http://localhost:3000/")
+    fetch("http://localhost:3000/users")
       .then((resp) => resp.json())
       .then((data) => {
         data.map((user) => {
