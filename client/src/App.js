@@ -1,52 +1,55 @@
 import React from "react";
 import "./App.css";
 
-class App extends React.Component {
-  state = {
-    data: null,
-  };
+function App() {
+  const [user, setUser] = React.useState(""); //use context
 
-  componentDidMount() {
-    // Call our fetch function below once the component mounts
-    this.callBackendAPI();
-    // .then((res) => this.setState({ data: res.express }))
-    // .catch((err) => console.log(err));
-  }
-  // Fetches our GET route from the Express server. (Note the route we are fetching matches the GET route from server.js
-  callBackendAPI = () => {
-    fetch("http://localhost:3000/")
-      .then((res) => {
-        console.log(res);
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data);
-        const user = data.username;
-        this.setState({ data: user });
-        return user;
-      })
-      .catch((err) => {
-        console.log(err);
+  fetch("http://localhost:3000/")
+    .then((res) => {
+      console.log(res);
+      return res.json();
+    })
+    .then((data) => {
+      console.log(data);
+
+      const user = data.map((name) => {
+        ///console.log(name.username);
+        setUser(name.username);
+        //<li>{name.username}</li>;
       });
-  };
+      //console.log(data[0].username);
+      return user;
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 
-  // callBackendAPI = async () => {
-  //   const response = await fetch("/starter_route");
-  //   const body = await response.json();
-
-  //   if (response.status !== 200) {
-  //     throw Error(body.message);
-  //   }
-  //   return body;
-  // };
-
-  render() {
-    return (
-      <div className="App">
-        <p className="App-intro">{this.state.data}</p>
+  return (
+    <div className="App">
+      <div className="username">
+        <h6>Username:{user}</h6>
       </div>
-    );
-  }
+      <div>
+        <img href={photo} alt="User Image" />
+      </div>
+      <div>
+        <form>
+          <button>like button</button>
+        </form>
+        <form>
+          <button>comments button</button>
+        </form>
+      </div>
+      <div>
+        <h6>Username:{user}</h6>
+        <p>caption</p>
+      </div>
+      <div>
+        <a href="/comments">View all 20 comments</a>
+      </div>
+      <p className="App-intro"></p>
+    </div>
+  );
 }
 
 export default App;

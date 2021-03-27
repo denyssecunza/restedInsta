@@ -19,5 +19,11 @@ app.get("/", (req, res) => {
   //res.send({ express: "The backend is connected to React" });
 });
 
+app.get("/photos", (req, res) => {
+  queries.getAll("photos").then((photo) => {
+    res.json(photo);
+  });
+});
+
 app.listen(PORT, () => console.log(`Listen on port http://localhost:${PORT}`));
 module.exports = app;
