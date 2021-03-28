@@ -13,17 +13,10 @@ function UserPost() {
         if (isCurrent) {
           const allPhotos = [];
           photos.map((photo) => {
-            allPhotos.push({
-              id: photo.id,
-              image: photo.photo_link,
-              caption: photo.caption,
-              comments: photo.comment,
-              likes: photo.likes,
-              userId: photo.user_id,
-            });
-            setPhoto(allPhotos);
-            return photoState;
+            allPhotos.push(photo);
           });
+          setPhoto(allPhotos); //array of objects
+          return photoState;
         }
       })
       .catch((err) => console.log(err));
@@ -33,13 +26,11 @@ function UserPost() {
         return res.json();
       })
       .then((data) => {
-        //console.log(data);
         const allUsers = [];
         const user = data.map((name) => {
-          //console.log(name);
-          allUsers.push(name.username);
+          allUsers.push(name);
         });
-        setUser(allUsers);
+        setUser(allUsers); //array of objects
         return user;
       })
       .catch((err) => {
@@ -50,41 +41,67 @@ function UserPost() {
       isCurrent = false;
     };
   }, [thing]);
+  // console.log(photoState);
   // console.log(user);
-  console.log(photoState);
+  ///have a functions that takes all the data from photos that i == to user
+  const userPhoto = [];
+  const mergeUserphotos = () => {
+    //map over user
+    user.forEach((user) => {
+      //map over photos
+      photoState.forEach((photo) => {
+        //if user id === photo id
+        // add user id and username to an array
+        //add photo properties to the array
+        if (photo.user_id === user.id) {
+          userPhoto.push({
+            id: user.id,
+            username: user.username,
+            photoId: photo.id,
+            image: photo.photo_link,
+            caption: photo.caption,
+            likes: photo.likes,
+            comments: photo.comment,
+          });
+        }
+      });
+    });
 
-  //console.log(user);
+    //return new array of users with correct photo
+    return userPhoto;
+  };
+  mergeUserphotos();
+  console.log("user photos", userPhoto);
+
   return (
     <div>
-      {user && (
+      {userPhoto && (
         <div id="userList">
-          {user.map((user) => (
-            <div className="username" key={user}>
+          {userPhoto.map((user) => (
+            <div className="username" key={user.username}>
               <div>
-                <h6 key={user}>{user}</h6>
+                <h6 key={user.username}>{user.username}</h6>
               </div>
-              <div>
-                <img
-                  className="img-thumbnail"
-                  src={photoState.image}
-                  alt="User"
-                  style={{ width: "auto", height: "195px" }}
-                />
-              </div>
+              <img
+                className="img-thumbnail"
+                src={user.image}
+                alt="User"
+                style={{ width: "auto", height: "195px" }}
+              />
               <div>
                 <form>
-                  <button>likes {photoState.likes}</button>
+                  <button>likes {user.likes}</button>
                 </form>
                 <form>
-                  <button>comments {photoState.comments}</button>
+                  <button>comments {user.comments}</button>
                 </form>
               </div>
               <div>
-                <h6>{user}</h6>
-                <p>caption{photoState.caption}</p>
+                <h6>{user.username}</h6>
+                <p>{user.caption}</p>
               </div>
               <div>
-                <a href="/comments">View all {photoState.comments} comments</a>
+                <a href="/comments">View all {user.comments} comments</a>
               </div>
             </div>
           ))}
