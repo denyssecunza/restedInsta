@@ -1,22 +1,18 @@
-import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 import UserPost from "./Components/UserPost";
-import Dashboard from "./Components/Dashboard";
+import Comments from "./Components/Comments";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route path="/photos/:id" component={UserPost} />
-          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/" exact component={UserPost} />
+          <Route path="/comments" component={Comments} />
         </Switch>
       </BrowserRouter>
-      <h1>RestedInsta</h1>
-      <UserPost />
     </div>
   );
 }
-
 export default App;

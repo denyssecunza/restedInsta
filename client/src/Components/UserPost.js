@@ -88,8 +88,9 @@ function UserPost() {
 
   return (
     <div>
+      <h1>Rested Insta</h1>
       {userPhoto && (
-        <div class="container col-4" id="userList">
+        <div className="container col-4" id="userList">
           {userPhoto.map((user) => (
             <div
               className="container"
@@ -98,15 +99,15 @@ function UserPost() {
             >
               <div></div>
               <img
-                class="card-img-top"
+                className="card-img-top"
                 src={user.image}
                 alt=""
                 style={{ width: "400px", height: "400px" }}
               />
-              <div class="card-body d-flex justify-content-between">
+              <div className="card-body d-flex justify-content-between">
                 <h6>{user.username}</h6>
-                <div class="d-flex justify-content-start">
-                  <form class="form" method="POST">
+                <div className="d-flex justify-content-start">
+                  <form className="form" method="POST">
                     <img
                       src="https://www.iconpacks.net/icons/1/free-heart-icon-492-thumb.png"
                       style={{ width: "30px", height: "30px" }}
@@ -114,16 +115,20 @@ function UserPost() {
                     />
                   </form>
                   <form method="GET" action="/comments">
-                    <img
-                      src="https://lh3.googleusercontent.com/proxy/bjKn794mEqwGuIJSnihb5xb_h-d26cjR_xzsOCt4YVfCKf9_Wlt39_hy05Kvb1qvosU3imjUtB7xvo5WVx8beMMtsH-3S5Y"
-                      style={{ width: "30px", height: "30px" }}
-                    />
+                    <a href="/comments">
+                      <img
+                        src="https://lh3.googleusercontent.com/proxy/bjKn794mEqwGuIJSnihb5xb_h-d26cjR_xzsOCt4YVfCKf9_Wlt39_hy05Kvb1qvosU3imjUtB7xvo5WVx8beMMtsH-3S5Y"
+                        style={{ width: "30px", height: "30px" }}
+                      />
+                    </a>
                   </form>
                 </div>
               </div>
-              <div class="d-flex flex-column ">
+              <div className="d-flex flex-column ">
                 <h6>{user.caption}</h6>
-                <a href="/comments">View all comments</a>
+                <form action="/comments">
+                  <a href="/comments">View all comments</a>
+                </form>
               </div>
             </div>
           ))}
