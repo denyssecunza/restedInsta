@@ -27,3 +27,16 @@
 //     ))}
 //   </ul>
 // )}{" "}
+
+// fetch("http://localhost:3000/photos", {
+//   method: "POST",
+//   headers: {
+//     //Accept: "application/json",
+//     "Content-Type": "application/json",
+//   },
+//   body: JSON.stringify(
+//     "UPDATE photos",
+//     `SET likes = ${likes}`,
+//     `WHERE photo_id = ${e.id}`
+//   ),
+// });

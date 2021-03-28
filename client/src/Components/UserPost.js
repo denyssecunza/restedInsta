@@ -4,6 +4,7 @@ function UserPost() {
   const [photoState, setPhoto] = React.useState([]);
   const [user, setUser] = React.useState([]); //use context
   const [thing, setThing] = React.useState(0);
+  const [likes, setLikes] = React.useState(0);
 
   React.useEffect(() => {
     let isCurrent = true;
@@ -40,7 +41,7 @@ function UserPost() {
     return () => {
       isCurrent = false;
     };
-  }, [thing]);
+  }, [thing, likes]);
   // console.log(photoState);
   // console.log(user);
   ///have a functions that takes all the data from photos that i == to user
@@ -66,42 +67,63 @@ function UserPost() {
         }
       });
     });
-
     //return new array of users with correct photo
     return userPhoto;
   };
   mergeUserphotos();
-  console.log("user photos", userPhoto);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (
+      e.target.src ===
+      "https://www.iconpacks.net/icons/1/free-heart-icon-492-thumb.png"
+    ) {
+      e.target.src =
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/1200px-Heart_coraz%C3%B3n.svg.png";
+    } else {
+      e.target.src =
+        "https://www.iconpacks.net/icons/1/free-heart-icon-492-thumb.png";
+    }
+  };
 
   return (
     <div>
       {userPhoto && (
-        <div id="userList">
+        <div class="container col-4" id="userList">
           {userPhoto.map((user) => (
-            <div className="username" key={user.username}>
-              <div>
-                <h6 key={user.username}>{user.username}</h6>
-              </div>
+            <div
+              className="container"
+              style={{ marginbottom: "10px" }}
+              key={user.username}
+            >
+              <div></div>
               <img
-                className="img-thumbnail"
+                class="card-img-top"
                 src={user.image}
-                alt="User"
-                style={{ width: "auto", height: "195px" }}
+                alt=""
+                style={{ width: "400px", height: "400px" }}
               />
-              <div>
-                <form>
-                  <button>likes {user.likes}</button>
-                </form>
-                <form>
-                  <button>comments {user.comments}</button>
-                </form>
-              </div>
-              <div>
+              <div class="card-body d-flex justify-content-between">
                 <h6>{user.username}</h6>
-                <p>{user.caption}</p>
+                <div class="d-flex justify-content-start">
+                  <form class="form" method="POST">
+                    <img
+                      src="https://www.iconpacks.net/icons/1/free-heart-icon-492-thumb.png"
+                      style={{ width: "30px", height: "30px" }}
+                      onClick={handleClick}
+                    />
+                  </form>
+                  <form method="GET" action="/comments">
+                    <img
+                      src="https://lh3.googleusercontent.com/proxy/bjKn794mEqwGuIJSnihb5xb_h-d26cjR_xzsOCt4YVfCKf9_Wlt39_hy05Kvb1qvosU3imjUtB7xvo5WVx8beMMtsH-3S5Y"
+                      style={{ width: "30px", height: "30px" }}
+                    />
+                  </form>
+                </div>
               </div>
-              <div>
-                <a href="/comments">View all {user.comments} comments</a>
+              <div class="d-flex flex-column ">
+                <h6>{user.caption}</h6>
+                <a href="/comments">View all comments</a>
               </div>
             </div>
           ))}
