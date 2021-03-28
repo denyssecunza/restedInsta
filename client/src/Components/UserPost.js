@@ -11,8 +11,9 @@ function UserPost() {
       .then((response) => response.json())
       .then((photos) => {
         if (isCurrent) {
+          const allPhotos = [];
           photos.map((photo) => {
-            setPhoto({
+            allPhotos.push({
               id: photo.id,
               image: photo.photo_link,
               caption: photo.caption,
@@ -20,6 +21,8 @@ function UserPost() {
               likes: photo.likes,
               userId: photo.user_id,
             });
+            setPhoto(allPhotos);
+            return photoState;
           });
         }
       })
@@ -48,7 +51,7 @@ function UserPost() {
     };
   }, [thing]);
   // console.log(user);
-  //console.log(photoState);
+  console.log(photoState);
 
   //console.log(user);
   return (
@@ -57,37 +60,36 @@ function UserPost() {
         <div id="userList">
           {user.map((user) => (
             <div className="username" key={user}>
-              <h6 key={user}>{user}</h6>
+              <div>
+                <h6 key={user}>{user}</h6>
+              </div>
+              <div>
+                <img
+                  className="img-thumbnail"
+                  src={photoState.image}
+                  alt="User"
+                  style={{ width: "auto", height: "195px" }}
+                />
+              </div>
+              <div>
+                <form>
+                  <button>likes {photoState.likes}</button>
+                </form>
+                <form>
+                  <button>comments {photoState.comments}</button>
+                </form>
+              </div>
+              <div>
+                <h6>{user}</h6>
+                <p>caption{photoState.caption}</p>
+              </div>
+              <div>
+                <a href="/comments">View all {photoState.comments} comments</a>
+              </div>
             </div>
           ))}
         </div>
       )}{" "}
-      <div className="username">
-        <h6>{user}</h6>
-      </div>
-      <div>
-        <img
-          className="img-thumbnail"
-          src={photoState.image}
-          alt="User"
-          style={{ width: "auto", height: "195px" }}
-        />
-      </div>
-      <div>
-        <form>
-          <button>likes {photoState.likes}</button>
-        </form>
-        <form>
-          <button>comments {photoState.comments}</button>
-        </form>
-      </div>
-      <div>
-        <h6>{user}</h6>
-        <p>caption{photoState.caption}</p>
-      </div>
-      <div>
-        <a href="/comments">View all {photoState.comments} comments</a>
-      </div>
     </div>
   );
 }
