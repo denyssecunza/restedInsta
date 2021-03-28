@@ -4,7 +4,7 @@ function UserPost() {
   const [photoState, setPhoto] = React.useState([]);
   const [user, setUser] = React.useState([]); //use context
   const [thing, setThing] = React.useState(0);
-  const allUsers = [];
+
   React.useEffect(() => {
     let isCurrent = true;
     fetch(`http://localhost:3000/photos`)
@@ -12,7 +12,7 @@ function UserPost() {
       .then((photos) => {
         if (isCurrent) {
           photos.map((photo) => {
-            return setPhoto({
+            setPhoto({
               id: photo.id,
               image: photo.photo_link,
               caption: photo.caption,
@@ -30,12 +30,14 @@ function UserPost() {
         return res.json();
       })
       .then((data) => {
-        if (isCurrent) {
-          const user = data.map((name) => {
-            setUser(name.username);
-          });
-          return user;
-        }
+        //console.log(data);
+        const allUsers = [];
+        const user = data.map((name) => {
+          //console.log(name);
+          allUsers.push(name.username);
+        });
+        setUser(allUsers);
+        return user;
       })
       .catch((err) => {
         console.log(err);
@@ -45,9 +47,21 @@ function UserPost() {
       isCurrent = false;
     };
   }, [thing]);
-  console.log(user);
+  // console.log(user);
+  //console.log(photoState);
+
+  //console.log(user);
   return (
     <div>
+      {user && (
+        <div id="userList">
+          {user.map((user) => (
+            <div className="username" key={user}>
+              <h6 key={user}>{user}</h6>
+            </div>
+          ))}
+        </div>
+      )}{" "}
       <div className="username">
         <h6>{user}</h6>
       </div>
