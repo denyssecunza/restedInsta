@@ -16,20 +16,23 @@ function Dashboard() {
     fetch("http://localhost:3000/users")
       .then((resp) => resp.json())
       .then((data) => {
-        data.map((user) => {
-          setState([
-            {
-              id: user.user_id,
-              username: user.username,
-            },
-          ]);
-        });
+        if (isCurrent) {
+          data.map((user) => {
+            setState([
+              {
+                id: user.user_id,
+                username: user.username,
+              },
+            ]);
+          });
+        }
       });
     fetch(`http://localhost:3000/photos`)
       .then((resp) => resp.json())
       .then((photos) => {
-        console.log(photos);
-        setState({ photos: photos });
+        if (isCurrent) {
+          setState({ photos: photos });
+        }
       });
     return () => {
       isCurrent = false;
