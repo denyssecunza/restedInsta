@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 const queries = require('../db/dbqueries');
 
-router.get('/:id', (req, res) => {
-    queries.getAllComments(req.params.id).then(comments => {
-        res.json(comments);
-    })
+router.get('/', (req, res) => {
+    queries.getAllComments().then(comment => {
+        res.json(comment);
+    }).catch(err => {console.log(err)})
+    
 });
 
 //postId, userId, body

@@ -5,14 +5,15 @@ module.exports = {
     return knex(table);
   },
 
-  getAllComments(id) {
+  getAllComments() {
     return knex.select([
         'comments.id',
+        'comments.user_id',
         'comments.photo_id',
         'comments.comments_text',
         'users.username',
     ]).from('comments').innerJoin('users', 'users.id', '=', 'comments.user_id')
-        .where('comments.photo_id', '=', id).orderBy('comments.id', 'asc');
+       .orderBy('comments.id', 'asc');
   },
 
   getAllPhotos() {
