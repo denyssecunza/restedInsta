@@ -127,10 +127,11 @@ function UserPost() {
                       >
                         {console.log(user.image)}
                         <img
-                          src="https://lh3.googleusercontent.com/proxy/bjKn794mEqwGuIJSnihb5xb_h-d26cjR_xzsOCt4YVfCKf9_Wlt39_hy05Kvb1qvosU3imjUtB7xvo5WVx8beMMtsH-3S5Y"
+                          src="https://www.searchpng.com/wp-content/uploads/2019/02/Comment-Icon-PNG.png"
                           style={{
-                            width: "30px",
-                            height: "30px",
+                            width: "50px",
+                            height: "50px",
+                            marginTop: "-18%"
                           }}
                         />
                       </Link>
