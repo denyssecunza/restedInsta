@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 function Comments(props) {
   const clickedPhoto = props.match.params.photoId;
   const username = props.match.params.username;
@@ -65,29 +65,26 @@ function Comments(props) {
       });
     });
   };
-  console.log(allCommentsbyPhoto);
   photoComments();
+
   const handleChange = (e) => {
     e.preventDefault();
 
     setCommented(e.target.value);
-    // setCommented({ [e.target.username]: e.target.value })
   };
   const pho = parseInt(clickedPhoto);
   const handleSubmitComment = (e) => {
-    //  addToComments = (user, body) => {
     fetch(`http://localhost:3000/comments`, {
       method: "POST",
       headers: {
         Accept: "Application/Json",
         "Content-Type": "Application/Json",
       },
-      body: JSON.stringify(
-        {
-          user_id: 1,
-          photo_id: pho,
-          comments_text: commented,
-        }),
+      body: JSON.stringify({
+        user_id: 1,
+        photo_id: pho,
+        comments_text: commented,
+      }),
     })
       .then((response) => console.log(response.json()))
       .catch((err) => {
@@ -98,7 +95,22 @@ function Comments(props) {
   return (
     <div style={{ paddingTop: "5%", paddingBottom: "5%" }}>
       <div className="container col-4 bg-light">
-        <h1 className="has-text-centered is-size-3 fw-light ">Comments</h1>
+        <div className="row">
+          <div
+            className="d-flex justify-content-start"
+            style={{ marginLeft: "5%", marginTop: "5%", marginBottom: "5%" }}
+          >
+            <Link to={`/`}>
+              <img
+                src="https://www.pinclipart.com/picdir/middle/138-1385364_free-arrows-icons-back-icon-svg-free-clipart.png"
+                style={{
+                  width: "30px",
+                  height: "30px",
+                }}
+              />
+            </Link>
+          </div>
+        </div>
         <img src={link} style={{ width: "400px", height: "400px" }} />
         <h6 className="fw-bold" style={{ paddingTop: "5%" }}>
           {username}
@@ -108,10 +120,14 @@ function Comments(props) {
             <hr></hr>
             {allCommentsbyPhoto.map((postComment) => (
               <div className="d-flex justify-content-around">
-                <h6 className="fst-italic">{postComment.username}</h6>
-                <h6 className="fw-light " key={postComment.userId}>
-                  {postComment.text}
-                </h6>
+                <div className="col-3 d-flex justify-content-start">
+                  <h6 className="fst-italic">{postComment.username}</h6>
+                </div>
+                <div className="col-6 d-flex justify-content-start">
+                  <h6 className="fw-light " key={postComment.userId}>
+                    {postComment.text}
+                  </h6>
+                </div>
               </div>
             ))}
             <hr></hr>
