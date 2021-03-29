@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 function UserPost() {
   const [photoState, setPhoto] = React.useState([]);
   const [user, setUser] = React.useState([]); //use context
@@ -42,8 +42,7 @@ function UserPost() {
       isCurrent = false;
     };
   }, [thing, likes]);
-  // console.log(photoState);
-  // console.log(user);
+
   ///have a functions that takes all the data from photos that i == to user
   const userPhoto = [];
   const mergeUserphotos = () => {
@@ -87,53 +86,73 @@ function UserPost() {
   };
 
   return (
-    <div>
-      <h1>Rested Insta</h1>
-      {userPhoto && (
-        <div className="container col-4" id="userList">
-          {userPhoto.map((user) => (
-            <div
-              className="container"
-              style={{ marginbottom: "10px" }}
-              key={user.username}
-            >
-              <div></div>
-              <img
-                className="card-img-top"
-                src={user.image}
-                alt=""
-                style={{ width: "400px", height: "400px" }}
-              />
-              <div className="card-body d-flex justify-content-between">
-                <h6>{user.username}</h6>
-                <div className="d-flex justify-content-start">
-                  <form className="form" method="POST">
-                    <img
-                      src="https://www.iconpacks.net/icons/1/free-heart-icon-492-thumb.png"
-                      style={{ width: "30px", height: "30px" }}
-                      onClick={handleClick}
-                    />
-                  </form>
-                  <form method="GET" action="/comments">
-                    <a href="/comments">
+    <div style={{ paddingTop: "5%", paddingBottom: "5%" }}>
+      <h1 className="fw-light ">Rested Insta</h1>
+      <div className="container col-4 bg-light ">
+        {userPhoto && (
+          <div className="container list-group list-group-flush" id="userList">
+            {userPhoto.map((user) => (
+              <div
+                className="container list-group-item bg-light "
+                key={user.username}
+              >
+                <div></div>
+                <img
+                  className="card-img-top"
+                  src={user.image}
+                  alt=""
+                  style={{
+                    width: "400px",
+                    height: "400px",
+                    paddingTop: "7%",
+                    paddingBottom: "7%",
+                  }}
+                />
+                <div className="card-body d-flex justify-content-start">
+                  <div className="d-flex justify-content-start">
+                    <form className="form" method="POST">
                       <img
-                        src="https://lh3.googleusercontent.com/proxy/bjKn794mEqwGuIJSnihb5xb_h-d26cjR_xzsOCt4YVfCKf9_Wlt39_hy05Kvb1qvosU3imjUtB7xvo5WVx8beMMtsH-3S5Y"
+                        src="https://www.iconpacks.net/icons/1/free-heart-icon-492-thumb.png"
                         style={{ width: "30px", height: "30px" }}
+                        onClick={handleClick}
                       />
-                    </a>
-                  </form>
+                    </form>
+                    <form
+                      method="GET"
+                      action="/comments"
+                      style={{ marginLeft: "10%" }}
+                    >
+                      <Link
+                        to={`/comments/${user.photoId}/${user.username}/${user.image}`}
+                      >
+                        {console.log(user.image)}
+                        <img
+                          src="https://lh3.googleusercontent.com/proxy/bjKn794mEqwGuIJSnihb5xb_h-d26cjR_xzsOCt4YVfCKf9_Wlt39_hy05Kvb1qvosU3imjUtB7xvo5WVx8beMMtsH-3S5Y"
+                          style={{
+                            width: "30px",
+                            height: "30px",
+                          }}
+                        />
+                      </Link>
+                    </form>
+                  </div>
+                </div>
+                <div
+                  className="d-flex justify-content-top"
+                  style={{ marginLeft: "5%" }}
+                >
+                  <h6> {user.username} </h6>
+
+                  <h6 className="fw-light " style={{ marginLeft: "2%" }}>
+                    {" "}
+                    {user.caption}
+                  </h6>
                 </div>
               </div>
-              <div className="d-flex flex-column ">
-                <h6>{user.caption}</h6>
-                <form action="/comments">
-                  <a href="/comments">View all comments</a>
-                </form>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}{" "}
+            ))}
+          </div>
+        )}{" "}
+      </div>
     </div>
   );
 }
