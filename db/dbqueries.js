@@ -37,39 +37,10 @@ module.exports = {
     return knex.table('photo').where('user_id', id);
   },
 
-  // async createUser(username, email, password) {
-  //   try {
-  //       let password_hash = await argon.hash(password);
-  //       return knex('users').returning(['username', 'email']).insert({ username: username, email: email, password_hash: password_hash });
-  //   } catch (error) {
-  //       process.exit(1);
-  //   }
-  // },
 
-  // async createPost(id, title, body) {
-  //   return knex('posts').insert({ body: body, title: title, user_id: id });
-  // },
-
-  createComment(photoId, userId, comments_text) {
-    return knex('comments').returning(['comments_text']).insert({ photo_id: photoId, user_id: userId, comments_text: comments_text });
+  createComment(user_id, photo_id, comments_text) {
+    return knex('comments').insert({  user_id: 1, photo_id: photo_id, comments_text: comments_text });
   },
 
-  // async login(username, password) {
-  //   let getUser = await knex('users').where('username', username);
-  //   let user = getUser[0];
-
-  //   try {
-  //       if (await argon.verify(user.password_hash, password)) {
-  //           return user;
-  //       }
-  //       throw Error('Wrong username or password');
-  //   } catch (e) {
-  //       throw Error('Wrong username or password');
-  //   }
-  // },
-
-  // async getToken(token) {
-  //   newToken = auth.decodeToken(token)
-  //   return newToken;
-  // }
+  
 };

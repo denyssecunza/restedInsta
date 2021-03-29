@@ -9,9 +9,10 @@ router.get('/', (req, res) => {
     
 });
 
-//postId, userId, body
+//photoId, userId, body
 router.post('/', (req, res) => {
-    queries.createComment(req.body.photoId, req.body.userId, req.body.comments_text).then(comment => {
+    console.log("pls work body", req.body.user_id)
+    queries.createComment(req.body.user_id, req.body.photo_id, req.body.comments_text).then(comment => {
         res.json(comment);
     })
 });

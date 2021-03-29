@@ -6,21 +6,16 @@ const PORT = process.env.PORT || 3000;
 const users = require('./api/users');
 const photos = require('./api/photos');
 const comments = require('./api/comments');
+const bodyParser = require('body-parser')
 
 app.use(cors());
-
-// app.get("/starter_route", (req, res) => {
-//   res.send({ express: "The backend is connected to React" });
-// });
+app.use(express.json())
+app.use(express.urlencoded())
 
 app.use('/users', users);
 app.use('/photos', photos);
 app.use('/comments', comments);
 
-// // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//   next(createError(404));
-// });
 
 // error handler
 app.use(function (err, req, res, next) {

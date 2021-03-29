@@ -75,7 +75,6 @@ function Comments(props) {
   };
   const pho = parseInt(clickedPhoto);
   const handleSubmitComment = (e) => {
-    e.preventDefault();
     //  addToComments = (user, body) => {
     fetch(`http://localhost:3000/comments`, {
       method: "POST",
@@ -83,20 +82,17 @@ function Comments(props) {
         Accept: "Application/Json",
         "Content-Type": "Application/Json",
       },
-      body: JSON.stringify("Hello I am here "),
+      body: JSON.stringify(
+        {
+          user_id: 1,
+          photo_id: pho,
+          comments_text: commented,
+        }),
     })
       .then((response) => console.log(response.json()))
       .catch((err) => {
         console.log(err);
       });
-    // {
-    //   photoId: pho,
-    //   userId: user.id,
-    //   comments_text: commented,
-    // }
-    // setCommented({ comments: [...this.state.comments, { 'username': user, 'body': body }] })
-    // }
-    // setCommented({});
   };
 
   return (

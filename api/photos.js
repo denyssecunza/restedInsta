@@ -15,10 +15,4 @@ router.get('/:id', (req, res) => {
     });
 });
 
-// router.post('/new', (req, res) => {
-//     queries.createPost(req.body.user_id, req.body.title, req.body.body).then(post => {
-//         res.json(post[0]);
-//     });
-// });
-
 module.exports = router;
